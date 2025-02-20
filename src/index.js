@@ -28,8 +28,6 @@ const logHelper = require('./helper/log-helper.js');
 const APIServer = require('./server/api-server.js');
 const TestSuite = require('./model/test-suite.js');
 
-// This may be needed: https://github.com/angular/protractor/issues/2419#issuecomment-213112857
-
 class WPTS {
   constructor(port, browsers, browserVersions) {
     port = port ? port : 8090;
@@ -38,12 +36,12 @@ class WPTS {
     this._testSuites = {};
     this._supportedBrowsers = browsers || [
       'chrome',
-      'firefox',
+      /*'firefox',*/
     ];
     this._supportedBrowserVersions = browserVersions || [
       'stable',
-      'beta',
-      'unstable',
+      /*'beta',
+      'unstable',*/
     ];
 
     this._apiServer = new APIServer(port);
@@ -61,7 +59,7 @@ class WPTS {
   }
 
   downloadBrowsers() {
-    const browserDownloads = [];
+    /*const browserDownloads = [];
     this._supportedBrowsers.forEach((browser) => {
       this._supportedBrowserVersions.forEach((version) => {
         browserDownloads.push(
@@ -69,7 +67,8 @@ class WPTS {
         );
       });
     });
-    return Promise.all(browserDownloads);
+    return Promise.all(browserDownloads);*/
+    return Promise.resolve();
   }
 
   startService() {
@@ -166,15 +165,6 @@ class WPTS {
       return;
     }
 
-    if (webDriverInstance.getId() === 'firefox' &&
-      webDriverInstance.getVersionNumber() <= 48) {
-      APIServer.sendErrorResponse(res, 'bad_browser_support',
-        `Unforuntately Firefox version 49 and below has poor selenium ` +
-        `support or doesn't allow notifications automatically and isn't ` +
-        `supported as a result.`);
-      return;
-    }
-
     const optionalArgs = {};
     if (args.vapidPublicKey) {
       if (typeof args.vapidPublicKey !== 'string') {
@@ -184,16 +174,6 @@ class WPTS {
       }
 
       optionalArgs.vapidPublicKey = args.vapidPublicKey;
-    }
-
-    if (args.gcmSenderId) {
-      if (typeof args.gcmSenderId !== 'string') {
-        APIServer.sendErrorResponse(res, 'invalid_gcm_sender_id',
-          `Your GCM Sender ID must be a string.`);
-        return;
-      }
-
-      optionalArgs.gcmSenderId = args.gcmSenderId;
     }
 
     return this.initiateTestInstance(args.testSuiteId, optionalArgs,
@@ -260,11 +240,11 @@ class WPTS {
 
   initiateTestInstance(testSuiteId, optionalArgs, seleniumAssistantBrowser) {
     const tempPreferenceFile = './temp/blink';
-    return del('./temp')
+    return del.deleteAsync('./temp')
     .then(() => {
       if (seleniumAssistantBrowser.getId() === 'chrome' ||
         seleniumAssistantBrowser.getId() === 'opera') {
-        /* eslint-disable camelcase */
+
         const blinkPreferences = {
           profile: {
             content_settings: {

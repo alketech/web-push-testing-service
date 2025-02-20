@@ -14,7 +14,7 @@
  * limitations under the License.
 **/
 
-/* eslint-disable no-console */
+ 
 
 self.addEventListener('push', function(event) {
   console.log('RECEIVED PUSH EVENT');

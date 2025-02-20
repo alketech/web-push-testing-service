@@ -1,17 +1,7 @@
 
-<h1 align="center">Web Push Testing Service</h1>
+# Web Push Testing Service
 
-<p align="center">
-  <a href="https://travis-ci.org/GoogleChromeLabs/web-push-testing-service">
-    <img src="https://travis-ci.org/GoogleChromeLabs/web-push-testing-service.svg" alt="Travis Build Status" />
-  </a>
-  <a href="https://david-dm.org/GoogleChromeLabs/web-push-testing-service">
-    <img src="https://david-dm.org/GoogleChromeLabs/web-push-testing-service.svg" alt="NPM Dependency State" />
-  </a>
-  <a href="https://david-dm.org/GoogleChromeLabs/web-push-testing-service?type=dev">
-    <img src="https://david-dm.org/GoogleChromeLabs/web-push-testing-service/dev-status.svg" alt="NPM Dev Dependency State" />
-  </a>
-</p>
+> This project is a fork from the deprecated project [GoogleChromeLabs/web-push-testing-service](https://github.com/GoogleChromeLabs/web-push-testing-service).
 
 ## Why
 
@@ -71,9 +61,6 @@ and error with have an 'id' and 'message' parameter.
     This method expected a testSuiteId, a browser name and the release version
     and it will return a subscription.
 
-    The gcmSenderId and vapidPublicKey parameters are options BUT Chrome
-    requires one of them to work, otherwise you must catch the error.
-
     http://localhost:8090/api/get-subscription/
 
     **Input**
@@ -82,7 +69,6 @@ and error with have an 'id' and 'message' parameter.
         testSuiteId: <Test Suite ID Number>,
         browserName: <'chrome' | 'firefox'>,
         browserVersion: <'stable' | 'beta' | 'unstable' >,
-        gcmSenderId: <Your GCM Sender ID>,
         vapidPublicKey: <Base64 URL Encode Vapid Public Key>
     }
     ```

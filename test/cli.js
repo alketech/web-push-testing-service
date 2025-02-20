@@ -160,9 +160,9 @@ describe('Test Command Line Interface', function() {
 
   it('should start and stop service correctly', createFullFlowTest());
 
-  it('should start and stop service correctly with p flag', createFullFlowTest(['-p', 8081]));
+  it('should start and stop service correctly with p flag', createFullFlowTest(['-p', 8100]));
 
-  it('should start and stop service correctly with port flag', createFullFlowTest(['--port', 8082]));
+  it('should start and stop service correctly with port flag', createFullFlowTest(['--port', 8101]));
 
   it('should return an error if the port is already in use', function() {
     this.timeout(10 * 60 * 1000);

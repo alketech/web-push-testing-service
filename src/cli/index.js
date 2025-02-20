@@ -54,9 +54,7 @@ class WPTSCLI {
     }
 
     if (args.v || args.version) {
-      /* eslint-disable no-console */
       console.log(require('../../package.json').version);
-      /* eslint-enable no-console */
       handled = true;
     }
 
@@ -102,7 +100,7 @@ class WPTSCLI {
 
   startService(serviceName, flags) {
     if (!serviceName) {
-      logHelper.error('To start a service you must provide a service name.');
+      console.error('To start a service you must provide a service name.');
       process.exit(1);
       return;
     }
@@ -110,7 +108,7 @@ class WPTSCLI {
     try {
       this.stopService(serviceName);
 
-      logHelper.info('Starting service (This may take some time)....');
+      console.info('Starting service (This may take some time)....');
 
       const options = {};
       if (flags.p || flags.port) {
@@ -169,7 +167,7 @@ class WPTSCLI {
       try {
         execSync(`kill -9 ${servicePID} > /dev/null 2>&1`);
         serviceStopped = true;
-      } catch (err) {
+      } catch {
         // NOOP
       }
     }
@@ -180,7 +178,6 @@ class WPTSCLI {
   }
 
   printHelpText() {
-    /* eslint-disable max-len, no-console */
     console.log('web-push-testing-service');
     console.log('');
     console.log('Usage:');
@@ -196,7 +193,6 @@ class WPTSCLI {
     console.log('       --log-file <Path>          Path and filename for logfile.');
     console.log('       --version                  Current version of CLI.');
     console.log('');
-    /* eslint-enable line-length */
   }
 }
 

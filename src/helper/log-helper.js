@@ -15,40 +15,39 @@
 **/
 'use strict';
 
-/* eslint-disable no-console */
-
-const chalk = require('chalk');
 const winston = require('winston');
+
 
 class LogHelper {
   constructor() {
-    winston.remove(winston.transports.Console);
+    winston.add(new winston.transports.Console());
   }
 
   setLogFile(file) {
     try {
+      winston.remove(winston.transports.Console)
       winston.add(winston.transports.File, {
         filename: file,
         handleExceptions: true,
         humanReadableUnhandledException: true,
       });
-    } catch (err) {
+    } catch {
       // NOOP
     }
   }
 
   warn(msg) {
-    console.warn(chalk.yellow('[WARNING]: ') + msg);
+    console.warn('[WARNING]: ' + msg);
     winston.warn(msg);
   }
 
   error(msg) {
-    console.error(chalk.red('[ERROR]: ') + msg);
+    console.error('[ERROR]: ' + msg);
     winston.error(msg);
   }
 
   info(msg) {
-    console.log(chalk.dim('[INFO]: ') + msg);
+    console.log('[INFO]: ' + msg);
     winston.info(msg);
   }
 }
